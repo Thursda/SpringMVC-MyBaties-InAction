@@ -5,12 +5,6 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- * @Description: <br>
- *               网站：<a href="http://www.fkit.org">疯狂Java</a>
- * @author 肖文吉 36750064@qq.com
- * @version V1.0
- */
 // @XmlRootElement表示XML文档的根元素
 @XmlRootElement
 public class Book implements Serializable {

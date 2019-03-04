@@ -1,6 +1,7 @@
 package org.fkit.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,11 +21,13 @@ public class UserController{
 	
 	// 静态List<User>集合，此处代替数据库用来保存注册的用户信息
 	private static List<User> userList;
+	private static HashMap<String, User> userMap;
 	
 	// UserController类的构造器，初始化List<User>集合
 	public UserController() {
 		super();
 		userList = new ArrayList<User>();
+		userMap = new HashMap<String, User>();
 	}
 
 	// 静态的日志类LogFactory
@@ -54,6 +57,7 @@ public class UserController{
 			 user.setUsername(username);
 			 // 模拟数据库存储User信息
 			 userList.add(user);
+			 userMap.put(password, user);
 			 // 跳转到登录页面
 		     return "loginForm";
 		 }
@@ -69,14 +73,19 @@ public class UserController{
 			 Model model) {
 		 logger.info("登录名:"+loginname + " 密码:" + password);
 		 // 到集合中查找用户是否存在，此处用来模拟数据库验证
-		 for(User user : userList){
-			 if(user.getLoginname().equals(loginname) && user.getPassword().equals(password)){
-				 model.addAttribute("user",user);
-				 return "welcome";
-			 }
+		 if (loginname.length() > 0 && userMap.containsKey(loginname)) {
+			 User user = userMap.get(loginname);
+			 if (user.getPassword().equals(password)) {
+				return "welcome";
+			}
 		 }
+//		 for(User user : userList){
+//			 if(user.getLoginname().equals(loginname) && user.getPassword().equals(password)){
+//				 model.addAttribute("user",user);
+//				 return "welcome";
+//			 }
+//		 }
 	     return "loginForm";
 	 }
-
 }
 

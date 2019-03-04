@@ -26,9 +26,8 @@ public class User1Controller{
 	
 	// @ModelAttribute修饰的方法会先于login调用，该方法用于接收前台jsp页面传入的参数
 	@ModelAttribute
-	public void userModel(String loginname,String password,
-			 Model model){
-		logger.info("userModel");
+	public void userModel(String loginname,String password, Model model){
+		logger.info("-----------userModel");
 		// 创建User对象存储jsp页面传入的参数
 		User user = new User();
 		user.setLoginname(loginname);
@@ -39,7 +38,7 @@ public class User1Controller{
 	
 	@RequestMapping(value="/login1")
 	 public String login(Model model){
-		logger.info("login");
+		logger.info("-----------login");
 		// 从Model当中取出之前存入的名为user的对象
 		User user = (User) model.asMap().get("user");
 		System.out.println(user);
@@ -47,8 +46,5 @@ public class User1Controller{
 		user.setUsername("测试");
 		return "result1";
 	}
-	
-	
-
 }
 
